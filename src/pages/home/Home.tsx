@@ -5,8 +5,7 @@ function Home() {
     <main className="container">
       <section>
         <header>
-          <h1>HOME PAGE</h1>
-          <Link to="/example">Example Page</Link>
+          <h1 className="homeTitle">HOME PAGE</h1>
         </header>
       </section>
       <section>
@@ -43,10 +42,10 @@ function Home() {
               />
             </div>
           </div>
-          <button type="submit">Submit</button>
+          <button className="outline submitBtn" type="submit">
+            Submit
+          </button>
         </form>
-
-        <footer></footer>
       </section>
     </main>
   );
