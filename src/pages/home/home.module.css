@@ -4,8 +4,8 @@
 
 .submitBtn{
     width: '40%';
+    margin: 'auto';
+    margin-top: '20px';
 }
 
-.btnDiv{
-    width: '40%';
-}
+

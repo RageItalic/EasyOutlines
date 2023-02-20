@@ -25,8 +25,44 @@ function ThesisIdeas() {
       <section>
         {data.map((item) => (
           <div>
-            <article>
-              <p>{item}</p>
+            <article style={{ padding: "0px" }}>
+              <div
+                style={{
+                  display: "flex ",
+                  gap: "5px",
+                  padding: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    paddingLeft: "10px",
+                    paddingRight: "10px",
+                    textAlign: "left",
+                  }}
+                >
+                  <p style={{ margin: "0px" }}>{item}</p>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "15px",
+                  }}
+                >
+                  <a href="#">Save</a>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  position: "relative",
+                  bottom: "0px",
+                  padding: "10px",
+                }}
+              >
+                <a href="#">Get Essay Outline</a>
+              </div>
             </article>
           </div>
         ))}

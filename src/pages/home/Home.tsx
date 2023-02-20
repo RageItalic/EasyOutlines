@@ -68,11 +68,7 @@ function Home() {
                 onChange={(e) => setAuthor(e.target.value)}
                 required
               />
-              <button
-                className="outline submitBtn"
-                type="submit"
-                style={{ width: "40%", margin: "auto", marginTop: 20 }}
-              >
+              <button className={`outline ${styles.submitBtn}`} type="submit">
                 Submit
               </button>
             </div>
@@ -88,11 +84,7 @@ function Home() {
                 placeholder="Topic"
                 required
               />
-              <button
-                className="outline submitBtn"
-                type="submit"
-                style={{ width: "40%", margin: "auto", marginTop: 20 }}
-              >
+              <button className="outline submitBtn" type="submit">
                 Submit
               </button>
             </form>
