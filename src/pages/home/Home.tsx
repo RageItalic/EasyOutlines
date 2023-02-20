@@ -22,7 +22,6 @@ function Home() {
       },
     });
     setLoading(false);
-    console.log("data ", data);
     let path = `thesis-ideas`;
     navigate(path, { state: { data } });
   };

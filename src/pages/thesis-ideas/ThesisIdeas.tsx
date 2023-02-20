@@ -1,16 +1,17 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const mock = {
-  items: [1, 2, 3, 4],
-};
-
 function ThesisIdeas() {
-  const [data, setData] = useState(mock);
+  const [data, setData] = useState<string[]>([]);
   const location = useLocation();
 
   useEffect(() => {
     console.log("location ", location);
+    let theses = location.state.data.map((item: any) => {
+      return item.replaceAll("Source", "\nSource");
+    });
+    console.log("theses ", theses);
+    setData(theses);
   }, []);
 
   return (
@@ -22,73 +23,13 @@ function ThesisIdeas() {
       </section>
 
       <section>
-        <div
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   justifyContent: "center",
-        //   alignItems: "center",
-        //   gap: "30px",
-        //   backgroundColor: "pink",
-        // }}
-        >
-          <article
-            style={
-              {
-                // maxWidth: "60%",
-                // margin: "auto",
-                //   minWidth: "40%",
-                //   minHeight: "10%",
-                //   maxHeight: "210px",
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center",
-                //   padding: 0,
-              }
-            }
-          >
-            Card
-          </article>
-          <article
-          // style={{
-          //   minWidth: "40%",
-          //   minHeight: "10%",
-          //   maxHeight: "210px",
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          //   padding: 0,
-          // }}
-          >
-            Card
-          </article>
-          <article
-          // style={{
-          //   minWidth: "40%",
-          //   minHeight: "10%",
-          //   maxHeight: "210px",
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          //   padding: 0,
-          // }}
-          >
-            Card
-          </article>
-          <article
-          // style={{
-          //   minWidth: "40%",
-          //   minHeight: "10%",
-          //   maxHeight: "210px",
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          //   padding: 0,
-          // }}
-          >
-            Card
-          </article>
-        </div>
+        {data.map((item) => (
+          <div>
+            <article>
+              <p>{item}</p>
+            </article>
+          </div>
+        ))}
       </section>
     </main>
   );
