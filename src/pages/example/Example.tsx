@@ -17,8 +17,8 @@ function Example() {
     const {data, error} = await supabase.functions.invoke('generateTheses', {
       body: {
         thesisType: "BOOK_THESIS",
-        workTitle: "Lord of the Flies",
-        authorName: "William Golding"
+        workTitle: "Educated",
+        authorName: "Tara W"
       }
     })
 

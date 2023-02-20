@@ -50,10 +50,13 @@ serve(async (req) => {
     })
     const data = await response.json()
 
-    console.log("LOOK AT ALL THIS DATA", data)
+    let formattedData = data.choices[0].text.split("Thesis ")
+    formattedData.shift()
+
+    console.log("LOOK AT ALL THIS DATA", formattedData)
 
     return new Response(
-      JSON.stringify(data),
+      JSON.stringify(formattedData),
       { 
         headers: {
           ...corsHeaders,
