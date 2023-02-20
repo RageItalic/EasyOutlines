@@ -3,6 +3,7 @@ import { supabase } from '../../supabaseClient'
 import './Example.css'
 
 function Example() {
+  const [loading, setLoading] = useState(false)
   const [count, setCount] = useState(0)
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
@@ -10,13 +11,29 @@ function Example() {
   const handleTodoSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const {data, error} = await supabase.functions.invoke('test', {
+    setLoading(true)
+    console.log("working...")
+
+    const {data, error} = await supabase.functions.invoke('generateTheses', {
       body: {
-        name: title
+        thesisType: "BOOK_THESIS",
+        workTitle: "Educated",
+        authorName: "Tara W"
       }
     })
 
+    setLoading(false)
     console.log("look at data", data)
+  }
+
+  if (loading) {
+    return (
+      <main className="container">
+        <section>
+          <header>Loading...</header>
+        </section>
+      </main>
+    )
   }
 
   return (
