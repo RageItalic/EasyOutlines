@@ -2,48 +2,44 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 export const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+};
 
-console.log("Hello from test functions!")
+console.log("Hello from test functions!");
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', {headers: corsHeaders})
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    const { name } = await req.json()
+    const { name } = await req.json();
     const data = {
       message: `Hello ${name}!`,
-    }
+    };
 
-    return new Response(
-      JSON.stringify(data),
-      { 
-        headers: { 
-          ...corsHeaders,
-          "Content-Type": "application/json" 
-        },
-        status: 200 
+    return new Response(JSON.stringify(data), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
       },
-    )
+      status: 200,
+    });
   } catch (error) {
-    return new Response(
-      JSON.stringify({error: error.message}),
-      { 
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json'
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
       },
-      status: 400
-    })
+      status: 400,
+    });
   }
-})
+});
 
 // To invoke:
 // curl -i --location --request POST 'http://localhost:54321/functions/v1/' \

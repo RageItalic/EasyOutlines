@@ -1,24 +1,62 @@
 import { Link } from "react-router-dom";
+import styles from "./home.module.css";
+import { supabase } from "../../supabaseClient";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const [author, setAuthor] = useState("");
+  const [book, setBook] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  let navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("generateTheses", {
+      body: {
+        thesisType: "BOOK_THESIS",
+        authorName: author,
+        workTitle: book,
+      },
+    });
+    setLoading(false);
+    console.log("data ", data);
+    let path = `thesis-ideas`;
+    navigate(path, { state: { data } });
+  };
+
+  if (loading) {
+    return (
+      <main className="container">
+        <section>
+          <header>Loading...</header>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="container">
       <section>
         <header>
-          <h1 className="homeTitle">HOME PAGE</h1>
+          <h2>HOME PAGE</h2>
         </header>
       </section>
       <section>
-        <form>
-          <div className="grid">
+        <div className="grid">
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div>
-              <h2>FOR BOOKS:</h2>
+              <h3>FOR BOOKS:</h3>
               <p>I Need Thesis Ideas On The Book: </p>
               <input
                 type="text"
                 id="bookName"
                 name="bookName"
                 placeholder="Book Name"
+                value={book}
+                onChange={(e) => setBook(e.target.value)}
                 required
               />
               <p>Written By: </p>
@@ -27,11 +65,22 @@ function Home() {
                 id="author"
                 name="author"
                 placeholder="Author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
                 required
               />
+              <button
+                className="outline submitBtn"
+                type="submit"
+                style={{ width: "40%", margin: "auto", marginTop: 20 }}
+              >
+                Submit
+              </button>
             </div>
-            <div>
-              <h2>FOR MORE ABSTRACT TOPICS:</h2>
+          </form>
+          <div>
+            <form>
+              <h3>FOR MORE ABSTRACT TOPICS:</h3>
               <p>I Need Thesis Ideas On: </p>
               <input
                 type="text"
@@ -40,12 +89,16 @@ function Home() {
                 placeholder="Topic"
                 required
               />
-            </div>
+              <button
+                className="outline submitBtn"
+                type="submit"
+                style={{ width: "40%", margin: "auto", marginTop: 20 }}
+              >
+                Submit
+              </button>
+            </form>
           </div>
-          <button className="outline submitBtn" type="submit">
-            Submit
-          </button>
-        </form>
+        </div>
       </section>
     </main>
   );
