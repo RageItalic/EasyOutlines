@@ -42,7 +42,7 @@ function ThesisIdeas() {
                 >
                   <p style={{ margin: "0px" }}>{item}</p>
                 </div>
-                <div
+                {/* <div
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -50,18 +50,37 @@ function ThesisIdeas() {
                     padding: "15px",
                   }}
                 >
-                  <a href="#">Save</a>
-                </div>
+                  <button
+                    style={{ height: "40%", margin: "auto" }}
+                    className="outline"
+                  >
+                    <p style={{ margin: "0px", padding: "0px" }}>Save</p>
+                  </button>
+                </div> */}
               </div>
 
               <div
                 style={{
                   position: "relative",
                   bottom: "0px",
+                  marginTop: "10px",
                   padding: "10px",
+                  display: "flex",
+                  justifyContent: "space-around",
                 }}
               >
-                <a href="#">Get Essay Outline</a>
+                <button
+                  style={{ width: "30%", height: "10%", margin: "auto" }}
+                  className="outline"
+                >
+                  <p style={{ margin: "0px" }}>Get Essay Outline</p>
+                </button>
+                <button
+                  style={{ width: "30%", height: "10%", margin: "auto" }}
+                  className="outline"
+                >
+                  <p style={{ margin: "0px" }}>Save For Later</p>
+                </button>
               </div>
             </article>
           </div>
