@@ -1,16 +1,54 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
+import { supabase } from "../../supabaseClient";
+import { setDefaultResultOrder } from "dns";
 
 function ThesisIdeas() {
-  const [data, setData] = useState<string[]>([]);
+  const [theses, setTheses] = useState<string[]>([]);
+  const [book, setBook] = useState("");
+  const [author, setAuthor] = useState("");
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [regenerate, setRegenerate] = useState<string[]>([]);
 
   useEffect(() => {
-    let theses = location.state.data.map((item: any) => {
-      return item.replaceAll("Source", "\nSource");
+    if (regenerate.length > 0) {
+      let newTheses = regenerate.map((item: any) => {
+        return item.replaceAll("Source", "\nSource");
+      });
+      setTheses(newTheses);
+    } else {
+      let newTheses = location.state.data.map((item: any) => {
+        return item.replaceAll("Source", "\nSource");
+      });
+      setTheses(newTheses);
+      setBook(location.state.book);
+      setAuthor(location.state.author);
+    }
+  }, [location, regenerate]);
+
+  const regenerateTheses = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("generateTheses", {
+      body: {
+        thesisType: "BOOK_THESIS",
+        authorName: author,
+        workTitle: book,
+      },
     });
-    setData(theses);
-  }, []);
+    setLoading(false);
+    setRegenerate(data);
+  };
+
+  if (loading) {
+    return (
+      <main className="container">
+        <section>
+          <header>Loading...</header>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="container">
@@ -21,7 +59,7 @@ function ThesisIdeas() {
       </section>
 
       <section>
-        {data.map((item) => (
+        {theses.map((item) => (
           <div>
             <article style={{ padding: "0px" }}>
               <div
@@ -89,6 +127,11 @@ function ThesisIdeas() {
           <button
             style={{ width: "50%", height: "10%", margin: "auto" }}
             className="outline"
+            onClick={() => {
+              regenerate.length > 0
+                ? console.log("alsdjflkajsdlkf")
+                : regenerateTheses();
+            }}
           >
             <p style={{ margin: "0px" }}>
               Regenerate Theses (Can only be used once)

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import { supabase } from "../../supabaseClient";
 import { useState } from "react";
@@ -24,7 +23,7 @@ function Home() {
     });
     setLoading(false);
     let path = `thesis-ideas`;
-    navigate(path, { state: { data } });
+    navigate(path, { state: { data, book, author } });
   };
 
   if (loading) {
