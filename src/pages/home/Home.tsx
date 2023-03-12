@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const [author, setAuthor] = useState("");
   const [book, setBook] = useState("");
+  const [abstractTopic, setAbstractTopic] = useState("");
   const [loading, setLoading] = useState(false);
 
   let navigate = useNavigate();
@@ -74,7 +75,7 @@ function Home() {
             </div>
           </form>
           <div>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <h3>FOR MORE ABSTRACT TOPICS:</h3>
               <p>I Need Thesis Ideas On: </p>
               <input
@@ -82,6 +83,7 @@ function Home() {
                 id="abstractTopic"
                 name="abstractTopic"
                 placeholder="Topic"
+                onChange={(e) => setAbstractTopic(e.target.value)}
                 required
               />
               <button className="outline submitBtn" type="submit">

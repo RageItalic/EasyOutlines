@@ -1,16 +1,14 @@
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 
 function ThesisIdeas() {
   const [data, setData] = useState<string[]>([]);
   const location = useLocation();
 
   useEffect(() => {
-    console.log("location ", location);
     let theses = location.state.data.map((item: any) => {
       return item.replaceAll("Source", "\nSource");
     });
-    console.log("theses ", theses);
     setData(theses);
   }, []);
 
@@ -85,6 +83,18 @@ function ThesisIdeas() {
             </article>
           </div>
         ))}
+      </section>
+      <section>
+        <div>
+          <button
+            style={{ width: "50%", height: "10%", margin: "auto" }}
+            className="outline"
+          >
+            <p style={{ margin: "0px" }}>
+              Regenerate Theses (Can only be used once)
+            </p>
+          </button>
+        </div>
       </section>
     </main>
   );
